@@ -1,0 +1,21 @@
+{
+  "name": "Alchimia & Erboristeria",
+  "short_name": "Alchimia",
+  "description": "App di alchimia e erboristeria",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#50C878",
+  "theme_color": "#50C878",
+  "icons": [
+    {
+      "src": "fonti_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "fonti_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
