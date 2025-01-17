@@ -37,18 +37,35 @@
         .button-presenza {
             background-color: #FFFFFF; /* bianco */
         }
-        .home-button {
-            position: fixed;            /* Fissa il pulsante */
-            bottom: 20px;               /* Posiziona il pulsante a 20px dal fondo */
-            left: 50%;                  /* Centra orizzontalmente */
-            transform: translateX(-50%); /* Centra esattamente rispetto alla larghezza */
-            background-color: transparent; /* Rende il pulsante trasparente */
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 30px;            /* Aumenta la dimensione dell'icona */
-            color: black;               /* Imposta il colore dell'icona */
-        }
+Mi scuso per il disguido! Vediamo di correggere la situazione.
+
+La causa di questo comportamento potrebbe essere l'effetto combinato del position: fixed e l'uso di height: 100vh; nel tuo body. Se usi 100vh, la dimensione del corpo della pagina si riduce per lasciare spazio al pulsante ancorato. Proviamo a correggere entrambi questi problemi.
+Modifica suggerita:
+
+    Aggiungiamo height: 100% al corpo, in modo che la dimensione totale della pagina non sia ridotta dal pulsante fisso.
+    Posizioniamo il pulsante correttamente con position: fixed, ma senza alterare l'altezza della pagina.
+
+Nuovo CSS per .home-button:
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Usa il 100% dell'altezza */
+}
+
+.home-button {
+    position: fixed;               /* Fissa il pulsante */
+    bottom: 20px;                  /* Posiziona il pulsante a 20px dal fondo */
+    left: 50%;                     /* Centra orizzontalmente */
+    transform: translateX(-50%);   /* Centra esattamente rispetto alla larghezza */
+    background-color: transparent; /* Rende il pulsante trasparente */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 30px;               /* Aumenta la dimensione dell'icona */
+    color: black;                  /* Colore dell'icona */
+}
 
         /* Stili per il risultato della presenza */
         .result-text {
