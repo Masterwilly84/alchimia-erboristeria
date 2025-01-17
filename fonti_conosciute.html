@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonti Conosciute</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            flex-direction: column;
+            background-color: #87CEEB; /* Azzurro chiaro */
+        }
+        h1 {
+            color: white;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            border: none; /* Rimuove il bordo predefinito */
+            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
+            box-shadow: none; /* Rimuove eventuali ombre predefinite */
+            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+        }
+        .button-presenza {
+            background-color: #FFFFFF; /* bianco */
+        }
+        .home-button {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            background-color: transparent; /* Rende il pulsante trasparente */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 30px; /* Aumenta la dimensione dell'icona */
+            color: black; /* Imposta il colore dell'icona */
+        }
+        /* Stili per il risultato della presenza */
+        .result-text {
+            color: white; /* Imposta il colore del testo a bianco */
+            font-weight: bold; /* Imposta il testo in grassetto */
+            font-size: 20px; /* Imposta la dimensione del testo */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fonti Conosciute</h1>
+        <button class="button button-presenza" onclick="checkPresence()">Presenza</button>
+        <select id="stars">
+            <option value="1">1*</option>
+            <option value="2">2*</option>
+            <option value="3">3*</option>
+            <option value="4">4*</option>
+        </select>
+        <!-- Aggiungi la classe result-text al paragrafo -->
+        <p id="presenceResult" class="result-text"></p>
+    </div>
+    <button class="home-button" onclick="window.location.href='index.html'">⌂</button>
+
+    <script>
+        function checkPresence() {
+            var stars = document.getElementById('stars').value;
+            var presence = Math.random();
+            var result = '';
+
+            if (stars == 1) {
+                result = presence < 0.80 ? 'Presente' : 'Assente';
+            }
+            else if (stars == 2) {
+                result = presence < 0.60 ? 'Presente' : 'Assente';
+            }
+            else if (stars == 3) {
+                result = presence < 0.15 ? 'Presente' : 'Assente';
+            }
+            else if (stars == 4) {
+                result = presence < 0.05 ? 'Presente' : 'Assente';
+            }
+
+            document.getElementById('presenceResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

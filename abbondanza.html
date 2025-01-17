@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abbondanza/Ingredienti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #FFB347; /* arancione chiaro */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+        h1 {
+            margin-bottom: 50px;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            border: none; /* Rimuove il bordo predefinito */
+            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
+            box-shadow: none; /* Rimuove eventuali ombre predefinite */
+            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+        }
+        .scarsa-btn { background-color: #FF7F7F; }
+        .moderata-btn { background-color: #90EE90; }
+        .ricca-btn { background-color: #87CEEB; }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 0; /* Elimina eventuale margine sopra il menu */
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            background-color: transparent; /* Rende il pulsante trasparente */
+            border-radius: 50%;
+            width: 60px;  /* Aumenta la larghezza */
+            height: 60px;  /* Aumenta l'altezza */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .home-btn a {
+            text-decoration: none;
+            color: black;
+            font-size: 30px; /* Aumenta la dimensione dell'icona */
+        }
+        /* Nuove modifiche per l'allineamento */
+        .input-container {
+            display: flex;
+            align-items: center; /* Centra verticalmente gli elementi */
+            justify-content: flex-start; /* Allinea gli elementi a sinistra */
+            margin-top: 20px; /* Puoi regolare l'eventuale margine sopra */
+        }
+        .label-risultato {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px; /* Aggiunge uno spazio tra la scritta e il menu */
+        }
+    </style>
+</head>
+<body>
+    <div class="home-btn">
+        <a href="index.html">⌂</a>
+    </div>
+    <h1>Abbondanza/Ingredienti</h1>
+
+    <button class="scarsa-btn" onclick="generateResult('scarsa')">Scarsa</button>
+    <button class="moderata-btn" onclick="generateResult('moderata')">Moderata</button>
+    <button class="ricca-btn" onclick="generateResult('ricca')">Ricca</button>
+
+    <!-- Nuovo contenitore per la scritta e il menu a tendina -->
+    <div class="input-container">
+        <label for="numero" class="label-risultato">Risultato Prova</label>
+        <select id="numero">
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21+">21+</option>
+        </select>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function generateResult(type) {
+            const numero = document.getElementById("numero").value;
+            let resultText = "";
+            let numFonti;
+
+            // Funzione per generare un numero casuale in un range specifico
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            if (numero == "10" || numero == "11" || numero == "12") {
+                if (type === "scarsa") {
+                    numFonti = getRandomInt(1, 4);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti 1)`;
+                } else if (type === "moderata") {
+                    numFonti = getRandomInt(1, 6);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 5)})`;
+                } else if (type === "ricca") {
+                    numFonti = getRandomInt(2, 9);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 8)})`;
+                }
+            } else if (numero == "13" || numero == "14" || numero == "15" || numero == "16" || numero == "17") {
+                if (type === "scarsa") {
+                    numFonti = getRandomInt(2, 8);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti 1)`;
+                } else if (type === "moderata") {
+                    numFonti = getRandomInt(2, 12);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 5)})`;
+                } else if (type === "ricca") {
+                    numFonti = getRandomInt(4, 18);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 8)})`;
+                }
+            } else if (numero == "18" || numero == "19" || numero == "20") {
+                if (type === "scarsa") {
+                    numFonti = getRandomInt(3, 12);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti 1)`;
+                } else if (type === "moderata") {
+                    numFonti = getRandomInt(4, 19);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 5)})`;
+                } else if (type === "ricca") {
+                    numFonti = getRandomInt(6, 27);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 8)})`;
+                }
+            } else if (numero == "21+") {
+                if (type === "scarsa") {
+                    numFonti = getRandomInt(5, 10);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti 1)`;
+                } else if (type === "moderata") {
+                    numFonti = getRandomInt(6, 27);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 5)})`;
+                } else if (type === "ricca") {
+                    numFonti = getRandomInt(8, 36);
+                    resultText = `Ingredienti ${numFonti} (N° Fonti ${getRandomInt(2, 8)})`;
+                }
+            }
+
+            // Mostra il risultato
+            document.getElementById("result").textContent = resultText;
+        }
+    </script>
+</body>
+</html>

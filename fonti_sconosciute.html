@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonti Sconosciute</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            flex-direction: column;
+            background-color: #FF6347; /* Rosso chiaro */
+        }
+        h1 {
+            color: white;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px 5px; /* Aumentato il margine orizzontale per distanziare di più */
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            border: none; /* Rimuove il bordo predefinito */
+            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
+            box-shadow: none; /* Rimuove eventuali ombre predefinite */
+            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap; /* Permette ai pulsanti di andare a capo */
+            justify-content: center; /* Centra i pulsanti orizzontalmente */
+            width: 100%;
+        }
+        .home-button {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            background-color: transparent; /* Rende il pulsante trasparente */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 30px; /* Aumenta la dimensione dell'icona */
+            color: black; /* Imposta il colore dell'icona */
+        }
+
+        /* Aggiunto stile per la scritta "Scegli la stagione" */
+        label {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Aggiunto stile per la scritta "Pianta Trovata" */
+        #nome-pianta {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fonti Sconosciute</h1>
+        <button class="home-button" onclick="window.location.href='index.html'">⌂</button>
+
+        <!-- Pulsanti per le ambientazioni -->
+        <div class="button-container">
+            <button id="prateria-brugheria" class="button">Prateria-Brugheria</button>
+            <button id="collina-steppa" class="button">Collina-Steppa</button>
+            <button id="montagna" class="button">Montagna</button>
+            <button id="bosco-foresta" class="button">Bosco-Foresta</button>
+            <button id="palude" class="button">Palude</button>
+            <button id="costiero-acquatico" class="button">Costiero-Acquatico</button>
+            <button id="desertico" class="button">Desertico</button>
+            <button id="polare-tundra" class="button">Polare-Tundra</button>
+            <button id="sottosuolo-caverne" class="button">Sottosuolo-Caverne</button>
+            <button id="planare" class="button">Planare</button>
+        </div>
+    
+        <style>
+            div {
+                margin-bottom: 20px; /* Aggiunge uno spazio vuoto */
+            }
+        </style>
+
+        <!-- Selezione della stagione -->
+        <div id="stagione">
+            <label for="stagione-selezionata">Scegli la stagione:</label>
+            <select id="stagione-selezionata">
+                <option value="primavera">Primavera</option>
+                <option value="estate">Estate</option>
+                <option value="autunno">Autunno</option>
+                <option value="inverno">Inverno</option>
+            </select>
+        </div>
+
+        <div>
+            <p id="nome-pianta">Pianta Trovata: </p>
+        </div>
+    </div>
+
+    <script>
+        // Probabilità delle piante per ogni stagione e ambiente
+        const piante = {
+            "prateria-brugheria": {
+                primavera: [
+                    { nome: "Inutilizzabile", probabilita: [1, 9] },
+                    { nome: "Belladonna 1*", probabilita: [10, 19] },
+                    { nome: "Cohosh 1*", probabilita: [20, 28] },
+                    { nome: "Dathil 1*", probabilita: [29, 36] },
+                    { nome: "Kingcup 1*", probabilita: [37, 44] },
+                    { nome: "Wolfsbane 1*", probabilita: [45, 52] },
+                    { nome: "Chokeberry 2*", probabilita: [53, 57] },
+                    { nome: "Elderberry 2*", probabilita: [58, 62] },
+                    { nome: "Feverbalm 2*", probabilita: [63, 67] },
+                    { nome: "Hagweed 2*", probabilita: [68, 72] },
+                    { nome: "Harlthorn 2*", probabilita: [73, 77] },
+                    { nome: "Nerium 2*", probabilita: [78, 81] },
+                    { nome: "Jaffray 3*", probabilita: [82, 84] },
+                    { nome: "Laumpor 3*", probabilita: [85, 87] },
+                    { nome: "Rosecork 3*", probabilita: [88, 90] },
+                    { nome: "Wyndor’s Erb 3*", probabilita: [91, 93] },
+                    { nome: "Yarberry! 3*", probabilita: [94, 96] },
+                    { nome: "Vauge! 3*", probabilita: [97, 99] },
+                    { nome: "Spellbane 4*", probabilita: [100, 100] }
+                ],
+                estate: [
+                    { nome: "Inutilizzabile", probabilita: [1, 6] },
+                    { nome: "Alleha 1*", probabilita: [7, 10] },
+                    { nome: "Amrans 1*", probabilita: [11, 14] },
+                    { nome: "Borage 1*", probabilita: [15, 18] },
+                    { nome: "Belladonna 1*", probabilita: [19, 22] },
+                    { nome: "Biset 1*", probabilita: [23, 26] },
+                    { nome: "Cohosh 1*", probabilita: [27, 30] },
+                    { nome: "Dathil 1*", probabilita: [31, 34] },
+                    { nome: "Kingcup 1*", probabilita: [35, 38] },
+                    { nome: "Wolfsbane 1*", probabilita: [39, 42] },
+                    { nome: "Canapa 2*", probabilita: [43, 47] },
+                    { nome: "Chokeberry 2*", probabilita: [48, 52] },
+                    { nome: "Elderberry 2*", probabilita: [53, 57] },
+                    { nome: "Feverbalm 2*", probabilita: [58, 62] },
+                    { nome: "Foulain 2*", probabilita: [63, 67] },
+                    { nome: "Hagweed 2*", probabilita: [68, 72] },
+                    { nome: "Harlthorn 2*", probabilita: [73, 77] },
+                    { nome: "Nerium 2*", probabilita: [78, 81] },
+                    { nome: "Jaffray 3*", probabilita: [82, 84] },
+                    { nome: "Laumpor 3*", probabilita: [85, 87] },
+                    { nome: "Rosecork 3*", probabilita: [88, 90] },
+                    { nome: "Wyndor’s Erb 3*", probabilita: [91, 93] },
+                    { nome: "Yarberry! 3*", probabilita: [94, 96] },
+                    { nome: "Vauge! 3*", probabilita: [97, 99] },
+                    { nome: "Spellbane 4*", probabilita: [100, 100] }
+                    ],
+                autunno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 14] },
+                    { nome: "Belladonna 1*", probabilita: [15, 27] },
+                    { nome: "Cohosh 1*", probabilita: [28, 40] },
+                    { nome: "Kingcup 1*", probabilita: [41, 53] },
+                    { nome: "Wolfsbane 1*", probabilita: [54, 66] },
+                    { nome: "Feverbalm 2*", probabilita: [67, 75] },
+                    { nome: "Hagweed", probabilita: [76, 84] },
+                    { nome: "Harlthorn 2*", probabilita: [85, 93] },
+                    { nome: "Jaffray 3*", probabilita: [94, 99] },
+                    { nome: "Spellbane 4*", probabilita: [100, 100] }
+                    ],
+                inverno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 19] },
+                    { nome: "Cohosh 1*", probabilita: [20, 45] },
+                    { nome: "Kingcup 1*", probabilita: [46, 71] },
+                    { nome: "Wolfsbane 1*", probabilita: [72, 99] },
+                    { nome: "Spellbane 4*", probabilita: [100, 100] }
+                    ]
+            },
+            "collina-steppa": {
+                primavera: [
+                    { nome: "Inutilizzabile", probabilita: [1, 5] },
+                    { nome: "Alteris! 1*", probabilita: [6, 11] },
+                    { nome: "Billitri 1*", probabilita: [12, 17] },
+                    { nome: "Chassil 1*", probabilita: [18, 23] },
+                    { nome: "Dagmather 1*", probabilita: [24, 29] },
+                    { nome: "Kingcup 1*", probabilita: [30, 35] },
+                    { nome: "Mooncorn 1*", probabilita: [36, 41] },
+                    { nome: "Mugworth 1*", probabilita: [42, 47] },
+                    { nome: "Wolfsbane 1*", probabilita: [48, 53] },
+                    { nome: "Darnell 2*", probabilita: [54, 58] },
+                    { nome: "Edram 2*", probabilita: [59, 63] },
+                    { nome: "Grimblossom 2*", probabilita: [64, 68] },
+                    { nome: "Hagweed 2*", probabilita: [69, 74] },
+                    { nome: "Mandragola 2*", probabilita: [75, 79] },
+                    { nome: "Marlikkon 2*", probabilita: [80, 84] },
+                    { nome: "Etherisca 3*", probabilita: [85, 87] },
+                    { nome: "Kanishta 3*", probabilita: [88, 90] },
+                    { nome: "Laumpor 3*", probabilita: [91, 93] },
+                    { nome: "Razor Grass 3*", probabilita: [94, 96] },
+                    { nome: "Wyndor’s Erb 3*", probabilita: [97, 99] },
+                    { nome: "Navouh 4*", probabilita: [100, 100] }
+                ],
+                estate: [
+                    { nome: "Inutilizzabile", probabilita: [1, 5] },
+                    { nome: "Alteris! 1*", probabilita: [6, 12] },
+                    { nome: "Bison-Gourd! 1*", probabilita: [13, 19] },
+                    { nome: "Dagmather 1*", probabilita: [20, 27] },
+                    { nome: "Kingcup 1*", probabilita: [28, 34] },
+                    { nome: "Mooncorn 1*", probabilita: [35, 41] },
+                    { nome: "Mugworth 1*", probabilita: [42, 48] },
+                    { nome: "Wolfsbane 1*", probabilita: [49, 55] },
+                    { nome: "Darnell 2*", probabilita: [56, 60] },
+                    { nome: "Grimblossom 2*", probabilita: [61, 65] },
+                    { nome: "Hagweed 2*", probabilita: [66, 71] },
+                    { nome: "Mandragola 2*", probabilita: [72, 76] },
+                    { nome: "Marlikkon 2*", probabilita: [77, 81] },
+                    { nome: "Etherisca 3*", probabilita: [82, 84] },
+                    { nome: "Kanishta 3*", probabilita: [85, 87] },
+                    { nome: "Laumpor 3*", probabilita: [88, 90] },
+                    { nome: "Razor Grass 3*", probabilita: [91, 93] },
+                    { nome: "Roveto Rosso 3*", probabilita: [96, 99] },
+                    { nome: "Navouh 4*", probabilita: [100, 100] }
+                ],
+                autunno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 7] },
+                    { nome: "Billitri 1*", probabilita: [8, 14] },
+                    { nome: "Bison-Gourd! 1*", probabilita: [15, 21] },
+                    { nome: "Chassil 1*", probabilita: [22, 28] },
+                    { nome: "Dagmather 1*", probabilita: [29, 35] },
+                    { nome: "Kingcup 1*", probabilita: [36, 42] },
+                    { nome: "Mugworth 1*", probabilita: [43, 49] },
+                    { nome: "Wolfsbane 1*", probabilita: [50, 56] },
+                    { nome: "Edram 2*", probabilita: [54, 62] },
+                    { nome: "Grimblossom 2*", probabilita: [63, 68] },
+                    { nome: "Hagweed 2*", probabilita: [69, 74] },
+                    { nome: "Mandragola 2*", probabilita: [75, 80] },
+                    { nome: "Etherisca 3*", probabilita: [81, 85] },
+                    { nome: "Kanishta 3*", probabilita: [86, 90] },
+                    { nome: "Razor Grass 3*", probabilita: [91, 95] },
+                    { nome: "Roveto Rosso 3*", probabilita: [96, 100] }
+                ],
+                inverno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 14] },
+                    { nome: "Billitri 1*", probabilita: [15, 26] },
+                    { nome: "Chassil 1*", probabilita: [27, 38] },
+                    { nome: "Dagmather 1*", probabilita: [39, 50] },
+                    { nome: "Kingcup 1*", probabilita: [51, 62] },
+                    { nome: "Wolfsbane 1*", probabilita: [63, 73] },
+                    { nome: "Edram 2*", probabilita: [74, 78] },
+                    { nome: "Grimblossom 2*", probabilita: [79, 83] },
+                    { nome: "Hagweed 2*", probabilita: [84, 88] },
+                    { nome: "Etherisca 3*", probabilita: [89, 94] },
+                    { nome: "Razor Grass 3*", probabilita: [95, 100] }
+                ]
+            },
+            "montagna": {
+                primavera: [
+                    { nome: "Inutilizzabile", probabilita: [1, 5] },
+                    { nome: "Aracnifoglia 1*", probabilita: [6, 15] },
+                    { nome: "Bloodberry! 1*", probabilita: [16, 25] },
+                    { nome: "Kelventari 1*", probabilita: [26, 35] },
+                    { nome: "Meargrass 1*", probabilita: [36, 45] },
+                    { nome: "Eldas 2*", probabilita: [46, 51] },
+                    { nome: "Glaze Lily 2*", probabilita: [52, 57] },
+                    { nome: "Kirin2 2*", probabilita: [58, 63] },
+                    { nome: "Melander 2*", probabilita: [64, 69] },
+                    { nome: "Phandar 2*", probabilita: [70, 75] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [76, 81] },
+                    { nome: "Ironwood 3*", probabilita: [82, 84] },
+                    { nome: "Moonflower3 3*", probabilita: [85, 87] },
+                    { nome: "Selune’s Tear 3*", probabilita: [88, 90] },
+                    { nome: "Sindari! 3*", probabilita: [91, 93] },
+                    { nome: "Turis! 3*", probabilita: [94, 96] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 99] },
+                    { nome: "Arbofiamma 4*", probabilita: [100, 100] }
+                ],
+                estate: [
+                    { nome: "Inutilizzabile", probabilita: [1, 12] },
+                    { nome: "Aracnifoglia 1*", probabilita: [13, 23] },
+                    { nome: "Kelventari 1*", probabilita: [24, 34] },
+                    { nome: "Meargrass 1*", probabilita: [35, 45] },
+                    { nome: "Eldas 2*", probabilita: [46, 48] },
+                    { nome: "Glaze Lily 2*", probabilita: [49, 51] },
+                    { nome: "Kirin! 2*", probabilita: [52, 57] },
+                    { nome: "Melander 2*", probabilita: [58, 63] },
+                    { nome: "Phandar 2*", probabilita: [67, 69] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [70, 75] },
+                    { nome: "Spinargento 2*", probabilita: [76, 79] },
+                    { nome: "Breldiar 3*", probabilita: [80, 81] },
+                    { nome: "Ironwood 3*", probabilita: [82, 84] },
+                    { nome: "Moonflower! 3*", probabilita: [85, 87] },
+                    { nome: "Selune’s Tear 3*", probabilita: [88, 90] },
+                    { nome: "Sindari! 3*", probabilita: [91, 93] },
+                    { nome: "Turis2 3*", probabilita: [94, 96] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 99] },
+                    { nome: "Arbofiamma 4*", probabilita: [100, 100] }
+                ],
+                autunno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 14] },
+                    { nome: "Aracnifoglia 1*", probabilita: [15, 23] },
+                    { nome: "Meargrass 1*", probabilita: [24, 32] },
+                    { nome: "Eldas 2*", probabilita: [33, 39] },
+                    { nome: "Erba di Drago 2*", probabilita: [40, 46] },
+                    { nome: "Ghostroot 2*", probabilita: [47, 53] },
+                    { nome: "Melander 2*", probabilita: [54, 60] },
+                    { nome: "Phandar 2*", probabilita: [61, 67] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [68, 74] },
+                    { nome: "Spinargento 2*", probabilita: [75, 81] },
+                    { nome: "Bittermourn 3*", probabilita: [82, 84] },
+                    { nome: "Breldiar 3*", probabilita: [85, 87] },
+                    { nome: "Ironwood 3*", probabilita: [88, 90] },
+                    { nome: "Sindari! 3*", probabilita: [91, 93] },
+                    { nome: "Turis! 3*", probabilita: [94, 96] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 99] },
+                    { nome: "Arbofiamma 4*", probabilita: [100, 100] }
+                ],
+                inverno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 14] },
+                    { nome: "Aracnifoglia 1*", probabilita: [15, 28] },
+                    { nome: "Erba di Drago 2*", probabilita: [29, 38] },
+                    { nome: "Ghostroot 2*", probabilita: [39, 48] },
+                    { nome: "Melander 2*", probabilita: [49, 58] },
+                    { nome: "Phandar 2*", probabilita: [59, 68] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [69, 78] },
+                    { nome: "Spinargento 2*", probabilita: [79, 87] },
+                    { nome: "Bittermourn 3*", probabilita: [88, 93] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 99] },
+                    { nome: "Arbofiamma 4*", probabilita: [100, 100] }
+                ]
+            },
+            "bosco-foresta": {
+                primavera: [
+                    { nome: "Inutilizzabile", probabilita: [1, 11] },
+                    { nome: "Balsa! 1*", probabilita: [12, 15] },
+                    { nome: "Belladonna 1*", probabilita: [16, 19] },
+                    { nome: "Bilberry 1*", probabilita: [20, 21] },
+                    { nome: "Biseechee! 1*", probabilita: [22, 25] },
+                    { nome: "Bloodroot! 1*", probabilita: [26, 29] },
+                    { nome: "Blueleaf 1*", probabilita: [30, 33] },
+                    { nome: "Cefalofago 1*", probabilita: [34, 37] },
+                    { nome: "Lasal 1*", probabilita: [38, 41] },
+                    { nome: "Meargrass 1*", probabilita: [42, 45] },
+                    { nome: "Athelas 2*", probabilita: [46, 48] },
+                    { nome: "Arconis 2*", probabilita: [49, 51] },
+                    { nome: "Bronzewood! 2*", probabilita: [52, 54] },
+                    { nome: "Calan 2*", probabilita: [55, 57] },
+                    { nome: "Felsul 2*", probabilita: [58, 62] },
+                    { nome: "Hinny! 2*", probabilita: [61, 62] },
+                    { nome: "Lycoris 2*", probabilita: [63, 64] },
+                    { nome: "Mirtillo Lunare 2*", probabilita: [65, 67] },
+                    { nome: "Phandar 2*", probabilita: [68, 70] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [71, 73] },
+                    { nome: "Shadowtop 2*", probabilita: [74, 76] },
+                    { nome: "Silvertree! 2*", probabilita: [77, 80] },
+                    { nome: "Blueglow Moss! 3*", probabilita: [81, 82] },
+                    { nome: "Faunofungo 3*", probabilita: [83, 84] },
+                    { nome: "Etherisca 3*", probabilita: [85, 86] },
+                    { nome: "Ironwood 3*", probabilita: [87, 88] },
+                    { nome: "Moonflower! 3*", probabilita: [89, 90] },
+                    { nome: "Mordayn 3*", probabilita: [91, 92] },
+                    { nome: "Roveto Rosso 3*", probabilita: [93, 94] },
+                    { nome: "Selune’s Tear 3*", probabilita: [95, 96] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 98] },
+                    { nome: "Everspring Tree! 4*", probabilita: [99, 99] },
+                    { nome: "Querceterna 4*", probabilita: [100, 100] }
+                ],
+                estate: [
+                    { nome: "Inutilizzabile", probabilita: [1, 10] },
+                    { nome: "Balsa! 1*", probabilita: [11, 15] },
+                    { nome: "Belladonna 1*", probabilita: [16, 19] },
+                    { nome: "Bilberry 1*", probabilita: [20, 24] },
+                    { nome: "Biseechee! 1*", probabilita: [25, 28] },
+                    { nome: "Bloodroot! 1*", probabilita: [29, 32] },
+                    { nome: "Blueleaf 1*", probabilita: [33, 37] },
+                    { nome: "Lasal 1*", probabilita: [38, 41] },
+                    { nome: "Meargrass 1*", probabilita: [42, 45] },
+                    { nome: "Athelas 2*", probabilita: [46, 48] },
+                    { nome: "Arconis 2*", probabilita: [49, 51] },
+                    { nome: "Bronzewood! 2*", probabilita: [52, 54] },
+                    { nome: "Calan 2*", probabilita: [55, 57] },
+                    { nome: "Felsul 2*", probabilita: [58, 62] },
+                    { nome: "Hinny1 2*", probabilita: [61, 62] },
+                    { nome: "Lycoris 2*", probabilita: [63, 64] },
+                    { nome: "Mirtillo Lunare 2*", probabilita: [65, 67] },
+                    { nome: "Phandar 2*", probabilita: [68, 70] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [71, 73] },
+                    { nome: "Shadowtop 2*", probabilita: [74, 76] },
+                    { nome: "Silvertree! 2*", probabilita: [77, 80] },
+                    { nome: "Blueglow Moss! 3*", probabilita: [81, 82] },
+                    { nome: "Faunofungo 3*", probabilita: [83, 84] },
+                    { nome: "Etherisca 3*", probabilita: [85, 86] },
+                    { nome: "Ironwood 3*", probabilita: [87, 88] },
+                    { nome: "Moonflower! 3*", probabilita: [89, 90] },
+                    { nome: "Mordayn 3*", probabilita: [91, 92] },
+                    { nome: "Roveto Rosso 3*", probabilita: [93, 94] },
+                    { nome: "Selune’s Tear 3*", probabilita: [95, 96] },
+                    { nome: "Wavemoss 3*", probabilita: [97, 98] },
+                    { nome: "Everspring Tree! 4*", probabilita: [99, 99] },
+                    { nome: "Querceterna 4*", probabilita: [100, 100] }
+                ],
+                autunno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 8] },
+                    { nome: "Balsa! 1*", probabilita: [9, 13] },
+                    { nome: "Belladonna 1*", probabilita: [14, 18] },
+                    { nome: "Biseechee! 1*", probabilita: [19, 23] },
+                    { nome: "Bloodroot! 1*", probabilita: [24, 28] },
+                    { nome: "Blueleaf 1*", probabilita: [29, 33] },
+                    { nome: "Cefalofago 1*", probabilita: [34, 38] },
+                    { nome: "Lasal 1*", probabilita: [39, 43] },
+                    { nome: "Meargrass 1*", probabilita: [44, 48] },
+                    { nome: "Athelas 2*", probabilita: [49, 59] },
+                    { nome: "Arconis 2*", probabilita: [53, 56] },
+                    { nome: "Bronzewood! 2*", probabilita: [57, 60] },
+                    { nome: "Calan 2*", probabilita: [61, 64] },
+                    { nome: "Phandar 2*", probabilita: [65, 68] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [69, 72] },
+                    { nome: "Shadowtop 2*", probabilita: [73, 76] },
+                    { nome: "Silvertree! 2*", probabilita: [77, 80] },
+                    { nome: "Blueglow Moss! 3*", probabilita: [81, 83] },
+                    { nome: "Faunofungo 3*", probabilita: [84, 86] },
+                    { nome: "Etherisca 3*", probabilita: [87, 89] },
+                    { nome: "Ironwood 3*", probabilita: [90, 92] },
+                    { nome: "Roveto Rosso 3*", probabilita: [93, 95] },
+                    { nome: "Wavemoss 3*", probabilita: [96, 98] },
+                    { nome: "Everspring Tree! 4*", probabilita: [99, 99] },
+                    { nome: "Querceterna 4*", probabilita: [100, 100] }
+                ],
+                inverno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 14] },
+                    { nome: "Cefalofago 1*", probabilita: [15, 28] },
+                    { nome: "Lasal 1*", probabilita: [29, 43] },
+                    { nome: "Meargrass 1*", probabilita: [44, 59] },
+                    { nome: "Athelas 2*", probabilita: [60, 64] },
+                    { nome: "Arconis 2*", probabilita: [65, 67] },
+                    { nome: "Phandar 2*", probabilita: [68, 71] },
+                    { nome: "Shadow-Thorn 2*", probabilita: [72, 75] },
+                    { nome: "Shadowtop 2*", probabilita: [76, 79] },
+                    { nome: "Silvertree! 2*", probabilita: [80, 83] },
+                    { nome: "Blueglow Moss! 3*", probabilita: [86, 86] },
+                    { nome: "Faunofungo 3*", probabilita: [87, 89] },
+                    { nome: "Etherisca 3*", probabilita: [90, 92] },
+                    { nome: "Ironwood 3*", probabilita: [93, 95] },
+                    { nome: "Wavemoss 3*", probabilita: [96, 98] },
+                    { nome: "Everspring Tree! 4*", probabilita: [99, 99] },
+                    { nome: "Querceterna 4*", probabilita: [100, 100] }
+                ]
+            },
+            "palude": {
+                "primavera": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 6] },
+                    { "nome": "Falsifal 1*", "probabilita": [7, 12] },
+                    { "nome": "Fenberry 1*", "probabilita": [13, 18] },
+                    { "nome": "Kingcup 1*", "probabilita": [19, 24] },
+                    { "nome": "Meargrass 1*", "probabilita": [25, 30] },
+                    { "nome": "Mugworth 1*", "probabilita": [31, 36] },
+                    { "nome": "Reedmace 1*", "probabilita": [37, 42] },
+                    { "nome": "Rewk 1*", "probabilita": [43, 48] },
+                    { "nome": "Scuud 1*", "probabilita": [49, 54] },
+                    { "nome": "Silverbark 1*", "probabilita": [55, 60] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [61, 66] },
+                    { "nome": "Glimmergrass 2*", "probabilita": [67, 71] },
+                    { "nome": "Grimblossom 2*", "probabilita": [72, 76] },
+                    { "nome": "Hagweed 2*", "probabilita": [77, 81] },
+                    { "nome": "Mist Flower 2*", "probabilita": [82, 86] },
+                    { "nome": "Swamp Moss 2*", "probabilita": [87, 91] },
+                    { "nome": "Miceto di Namira 3*", "probabilita": [92, 93] },
+                    { "nome": "Roveto Rosso 3*", "probabilita": [94, 96] },
+                    { "nome": "Thelmallow 3*", "probabilita": [97, 99] },
+                    { "nome": "Sanilca 4*", "probabilita": [100, 100] }
+                ],
+                "estate": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 4] },
+                    { "nome": "Bloodpurge 1*", "probabilita": [5, 9] },
+                    { "nome": "Falsifal 1*", "probabilita": [10, 12] },
+                    { "nome": "Fenberry 1*", "probabilita": [13, 18] },
+                    { "nome": "Kingcup 1*", "probabilita": [19, 24] },
+                    { "nome": "Meargrass 1*", "probabilita": [25, 30] },
+                    { "nome": "Mugworth 1*", "probabilita": [31, 36] },
+                    { "nome": "Reedmace 1*", "probabilita": [37, 42] },
+                    { "nome": "Rewk 1*", "probabilita": [43, 48] },
+                    { "nome": "Scuud 1*", "probabilita": [49, 54] },
+                    { "nome": "Silverbark 1*", "probabilita": [55, 60] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [61, 66] },
+                    { "nome": "Glimmergrass 2*", "probabilita": [67, 71] },
+                    { "nome": "Grimblossom 2*", "probabilita": [72, 76] },
+                    { "nome": "Hagweed 2*", "probabilita": [77, 81] },
+                    { "nome": "Mist Flower 2*", "probabilita": [82, 86] },
+                    { "nome": "Swamp Moss 2*", "probabilita": [87, 91] },
+                    { "nome": "Miceto di Namira 3*", "probabilita": [92, 93] },
+                    { "nome": "Roveto Rosso 3*", "probabilita": [94, 96] },
+                    { "nome": "Thelmallow 3*", "probabilita": [97, 99] },
+                    { "nome": "Sanilca 4*", "probabilita": [100, 100] }
+                ],
+                "autunno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 4] },
+                    { "nome": "Bloodpurge 1*", "probabilita": [5, 9] },
+                    { "nome": "Cefalofago 1*", "probabilita": [10, 13] },
+                    { "nome": "Falsifal 1*", "probabilita": [14, 17] },
+                    { "nome": "Kingcup 1*", "probabilita": [18, 21] },
+                    { "nome": "Meargrass 1*", "probabilita": [22, 27] },
+                    { "nome": "Mugworth 1*", "probabilita": [28, 34] },
+                    { "nome": "Reedmace 1*", "probabilita": [35, 41] },
+                    { "nome": "Rewk 1*", "probabilita": [42, 47] },
+                    { "nome": "Scuud 1*", "probabilita": [48, 54] },
+                    { "nome": "Silverbark 1*", "probabilita": [55, 61] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [62, 67] },
+                    { "nome": "Glimmergrass 2*", "probabilita": [68, 73] },
+                    { "nome": "Grimblossom 2*", "probabilita": [74, 79] },
+                    { "nome": "Hagweed 2*", "probabilita": [80, 85] },
+                    { "nome": "Swamp Moss 2*", "probabilita": [86, 91] },
+                    { "nome": "Miceto di Namira 3*", "probabilita": [92, 93] },
+                    { "nome": "Roveto Rosso 3*", "probabilita": [94, 96] },
+                    { "nome": "Vampire Moss 3*", "probabilita": [97, 99] },
+                    { "nome": "Sanilca 4*", "probabilita": [100, 100] }
+                ],
+                "inverno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 13] },
+                    { "nome": "Bloodpurge 1*", "probabilita": [14, 19] },
+                    { "nome": "Cefalofago 1*", "probabilita": [20, 25] },
+                    { "nome": "Kingcup 1*", "probabilita": [26, 29] },
+                    { "nome": "Rewk 1*", "probabilita": [30, 40] },
+                    { "nome": "Scuud 1*", "probabilita": [41, 51] },
+                    { "nome": "Silverbark 1*", "probabilita": [52, 62] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [63, 73] },
+                    { "nome": "Grimblossom 2*", "probabilita": [74, 82] },
+                    { "nome": "Hagweed 2*", "probabilita": [83, 88] },
+                    { "nome": "Roveto Rosso 3*", "probabilita": [89, 94] },
+                    { "nome": "Vampire Moss 3*", "probabilita": [97, 100] }
+                ]
+            },
+            "costiero-acquatico": {
+                "primavera": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 4] },
+                    { "nome": "Aspen 1*", "probabilita": [5, 13] },
+                    { "nome": "Kingcup 1*", "probabilita": [14, 22] },
+                    { "nome": "Locust Needle! 1*", "probabilita": [23, 28] },
+                    { "nome": "Lucerne 1*", "probabilita": [29, 34] },
+                    { "nome": "Meargrass 1*", "probabilita": [35, 44] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [45, 54] },
+                    { "nome": "Darkberry! 2*", "probabilita": [55, 63] },
+                    { "nome": "Erba Lantanese! 2*", "probabilita": [64, 72] },
+                    { "nome": "Firethor 2*", "probabilita": [73, 81] },
+                    { "nome": "Gylvir 2*", "probabilita": [82, 87] },
+                    { "nome": "Plantain! 2*", "probabilita": [88, 96] },
+                    { "nome": "Draconial 3*", "probabilita": [97, 99] },
+                    { "nome": "Ectolignum 4*", "probabilita": [100, 100] }
+                ],
+                "estate": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 4] },
+                    { "nome": "Aspen 1*", "probabilita": [5, 13] },
+                    { "nome": "Draaf 1*", "probabilita": [14, 22] },
+                    { "nome": "Kingcup 1*", "probabilita": [23, 28] },
+                    { "nome": "Locust Needle! 1*", "probabilita": [29, 34] },
+                    { "nome": "Lucerne 1*", "probabilita": [35, 44] },
+                    { "nome": "Meargrass 1*", "probabilita": [45, 54] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [55, 63] },
+                    { "nome": "Darkberry! 2*", "probabilita": [64, 72] },
+                    { "nome": "Erba Lantanese! 2*", "probabilita": [73, 81] },
+                    { "nome": "Firethor 2*", "probabilita": [82, 87] },
+                    { "nome": "Gylvir 2*", "probabilita": [88, 93] },
+                    { "nome": "Breldiar 2*", "probabilita": [94, 96] },
+                    { "nome": "Draconial 3*", "probabilita": [97, 99] },
+                    { "nome": "Ectolignum 4*", "probabilita": [100, 100] }
+                ],
+                "autunno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 7] },
+                    { "nome": "Draaf 1*", "probabilita": [8, 20] },
+                    { "nome": "Kingcup 1*", "probabilita": [21, 33] },
+                    { "nome": "Meargrass 1*", "probabilita": [34, 46] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [47, 59] },
+                    { "nome": "Darkberry! 2*", "probabilita": [60, 72] },
+                    { "nome": "Erba Lantanese! 2*", "probabilita": [73, 81] },
+                    { "nome": "Gylvir 2*", "probabilita": [82, 87] },
+                    { "nome": "Plantain 2*", "probabilita": [88, 93] },
+                    { "nome": "Breldiar 2*", "probabilita": [94, 96] },
+                    { "nome": "Draconial 3*", "probabilita": [97, 99] },
+                    { "nome": "Ectolignum 4*", "probabilita": [100, 100] }
+                ],
+                "inverno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 15] },
+                    { "nome": "Kingcup 1*", "probabilita": [16, 36] },
+                    { "nome": "Wolfsbane 1*", "probabilita": [37, 57] },
+                    { "nome": "Darkberry2 2*", "probabilita": [58, 71] },
+                    { "nome": "Erba Lantanese! 2*", "probabilita": [72, 85] },
+                    { "nome": "Plantain 2*", "probabilita": [86, 99] },
+                    { "nome": "Ectolignum 4*", "probabilita": [100, 100] }
+                ]
+            },
+            "desertico": {
+                "primavera": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 17] },
+                    { "nome": "Ab'I 1*", "probabilita": [18, 30] },
+                    { "nome": "Dagmather 1*", "probabilita": [31, 43] },
+                    { "nome": "Kingcup 1*", "probabilita": [44, 56] },
+                    { "nome": "Rewk 1*", "probabilita": [57, 69] },
+                    { "nome": "Arafaj 2*", "probabilita": [70, 78] },
+                    { "nome": "Bloodstauch 2*", "probabilita": [79, 87] },
+                    { "nome": "Gariic 2*", "probabilita": [88, 96] },
+                    { "nome": "Spiren 3*", "probabilita": [97, 99] },
+                    { "nome": "Quilaeya 4*", "probabilita": [100, 100] }
+                ],
+                "estate": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 3] },
+                    { "nome": "Ab'I 1*", "probabilita": [4, 16] },
+                    { "nome": "Dagmather 1*", "probabilita": [17, 30] },
+                    { "nome": "Kilmakur 1*", "probabilita": [31, 43] },
+                    { "nome": "Kingcup 1*", "probabilita": [44, 56] },
+                    { "nome": "Rewk 1*", "probabilita": [57, 69] },
+                    { "nome": "Arafaj 2*", "probabilita": [70, 78] },
+                    { "nome": "Bloodstauch 2*", "probabilita": [79, 87] },
+                    { "nome": "Gariic 2*", "probabilita": [88, 96] },
+                    { "nome": "Spiren 3*", "probabilita": [97, 99] },
+                    { "nome": "Quilaeya 4*", "probabilita": [100, 100] }
+                ],
+                "autunno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 17] },
+                    { "nome": "Ab'I 1*", "probabilita": [18, 30] },
+                    { "nome": "Dagmather 1*", "probabilita": [34, 43] },
+                    { "nome": "Kingcup 1*", "probabilita": [44, 56] },
+                    { "nome": "Rewk 1*", "probabilita": [57, 69] },
+                    { "nome": "Arafaj 2*", "probabilita": [70, 78] },
+                    { "nome": "Bloodstauch 2*", "probabilita": [79, 87] },
+                    { "nome": "Gariic 2*", "probabilita": [88, 96] },
+                    { "nome": "Spiren 3*", "probabilita": [97, 99] },
+                    { "nome": "Quilaeya 4*", "probabilita": [100, 100] }
+                ],
+                "inverno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 15] },
+                    { "nome": "Ab'I 1*", "probabilita": [16, 31] },
+                    { "nome": "Dagmather 1*", "probabilita": [32, 47] },
+                    { "nome": "Kingcup 1*", "probabilita": [48, 63] },
+                    { "nome": "Rewk 1*", "probabilita": [64, 79] },
+                    { "nome": "Gariic 2*", "probabilita": [80, 95] },
+                    { "nome": "Spiren 3*", "probabilita": [96, 99] },
+                    { "nome": "Quilaeya 4*", "probabilita": [100, 100] }
+                ]
+            },
+            "polare-tundra": {
+                "primavera": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 13] },
+                    { "nome": "Delrean 1*", "probabilita": [14, 30] },
+                    { "nome": "Mikka1 1*", "probabilita": [31, 47] },
+                    { "nome": "Yaretalion 1*", "probabilita": [48, 64] },
+                    { "nome": "Kathkusa 2*", "probabilita": [65, 80] },
+                    { "nome": "Snowflower 2*", "probabilita": [81, 96] },
+                    { "nome": "Gelosalvia 3*", "probabilita": [97, 100] }
+                ],
+                "estate": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 13] },
+                    { "nome": "Delrean 1*", "probabilita": [14, 30] },
+                    { "nome": "Mikka1 1*", "probabilita": [31, 47] },
+                    { "nome": "Yaretalion 1*", "probabilita": [48, 64] },
+                    { "nome": "Kathkusa 2*", "probabilita": [65, 80] },
+                    { "nome": "Snowflower 2*", "probabilita": [81, 96] },
+                    { "nome": "Gelosalvia 3*", "probabilita": [97, 100] }
+                ],
+                "autunno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 9] },
+                    { "nome": "Delrean 1*", "probabilita": [8, 21] },
+                    { "nome": "Mikka1 1*", "probabilita": [22, 35] },
+                    { "nome": "Yaretalion 1*", "probabilita": [36, 49] },
+                    { "nome": "Kathkusa 2*", "probabilita": [50, 60] },
+                    { "nome": "Snowflower 2*", "probabilita": [61, 71] },
+                    { "nome": "Palma Eldath 2*", "probabilita": [72, 82] },
+                    { "nome": "Zur 2*", "probabilita": [83, 93] },
+                    { "nome": "Bittermourn 3*", "probabilita": [94, 96] },
+                    { "nome": "Gelosalvia 3*", "probabilita": [97, 99] },
+                    { "nome": "Wintercore 4*", "probabilita": [100, 100] }
+                ],
+                "inverno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 19] },
+                    { "nome": "Delrean 1*", "probabilita": [20, 35] },
+                    { "nome": "Mikka1 1*", "probabilita": [36, 49] },
+                    { "nome": "Kathkusa 2*", "probabilita": [50, 60] },
+                    { "nome": "Snowflower 2*", "probabilita": [61, 71] },
+                    { "nome": "Palma Eldath 2*", "probabilita": [72, 82] },
+                    { "nome": "Zur 2*", "probabilita": [83, 90] },
+                    { "nome": "Bittermourn 3*", "probabilita": [91, 93] },
+                    { "nome": "Frostrose 3*", "probabilita": [94, 96] },
+                    { "nome": "Gelosalvia 3*", "probabilita": [97, 99] },
+                    { "nome": "Wintercore 4*", "probabilita": [100, 100] }
+                ]
+            },
+            "sottosuolo-caverne": {
+                "primavera": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 8] },
+                    { "nome": "Aldaka 1*", "probabilita": [9, 17] },
+                    { "nome": "Bibberbang 1*", "probabilita": [18, 24] },
+                    { "nome": "Bloodweed 1*", "probabilita": [25, 33] },
+                    { "nome": "Arconis 2*", "probabilita": [34, 41] },
+                    { "nome": "Cave Moss 2*", "probabilita": [42, 49] },
+                    { "nome": "Calcena 2*", "probabilita": [50, 57] },
+                    { "nome": "Sentaye 2*", "probabilita": [58, 65] },
+                    { "nome": "Radice Nera 2*", "probabilita": [66, 73] },
+                    { "nome": "Ribolan 2*", "probabilita": [74, 81] },
+                    { "nome": "Wuflorium 2*", "probabilita": [82, 89] },
+                    { "nome": "Atigax 3*", "probabilita": [90, 92] },
+                    { "nome": "Magivore 3*", "probabilita": [93, 95] },
+                    { "nome": "Sussur 3*", "probabilita": [96, 98] },
+                    { "nome": "Darkness’s Heart 4*", "probabilita": [99, 99] },
+                    { "nome": "Voidroot 4*", "probabilita": [100, 100] }
+                ],
+                "estate": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 8] },
+                    { "nome": "Aldaka 1*", "probabilita": [9, 19] },
+                    { "nome": "Bibberbang 1*", "probabilita": [20, 33] },
+                    { "nome": "Bloodweed 1*", "probabilita": [34, 41] },
+                    { "nome": "Arconis 2*", "probabilita": [42, 49] },
+                    { "nome": "Cave Moss 2*", "probabilita": [50, 57] },
+                    { "nome": "Calcena 2*", "probabilita": [58, 65] },
+                    { "nome": "Sentaye 2*", "probabilita": [66, 73] },
+                    { "nome": "Radice Nera 2*", "probabilita": [74, 81] },
+                    { "nome": "Ribolan 2*", "probabilita": [82, 89] },
+                    { "nome": "Atigax 3*", "probabilita": [90, 92] },
+                    { "nome": "Magivore 3*", "probabilita": [93, 95] },
+                    { "nome": "Sussur 3*", "probabilita": [96, 98] },
+                    { "nome": "Darkness’s Heart 4*", "probabilita": [99, 99] },
+                    { "nome": "Voidroot 4*", "probabilita": [100, 100] }
+                ],
+                "autunno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 8] },
+                    { "nome": "Aldaka 1*", "probabilita": [9, 17] },
+                    { "nome": "Bibberbang 1*", "probabilita": [18, 24] },
+                    { "nome": "Bloodweed 1*", "probabilita": [25, 33] },
+                    { "nome": "Arconis 2*", "probabilita": [34, 41] },
+                    { "nome": "Cave Moss 2*", "probabilita": [42, 49] },
+                    { "nome": "Calcena 2*", "probabilita": [50, 57] },
+                    { "nome": "Sentaye 2*", "probabilita": [58, 65] },
+                    { "nome": "Radice Nera 2*", "probabilita": [66, 73] },
+                    { "nome": "Ribolan 2*", "probabilita": [74, 81] },
+                    { "nome": "Wuflorium 2*", "probabilita": [82, 89] },
+                    { "nome": "Atigax 3*", "probabilita": [90, 92] },
+                    { "nome": "Magivore 3*", "probabilita": [93, 95] },
+                    { "nome": "Sussur 3*", "probabilita": [96, 98] },
+                    { "nome": "Darkness’s Heart 4*", "probabilita": [99, 99] },
+                    { "nome": "Voidroot 4*", "probabilita": [100, 100] }
+                ],
+                "inverno": [
+                    { "nome": "Inutilizzabile", "probabilita": [1, 3] },
+                    { "nome": "Bibberbang 1*", "probabilita": [4, 19] },
+                    { "nome": "Bloodweed 1*", "probabilita": [20, 35] },
+                    { "nome": "Arconis 2*", "probabilita": [36, 50] },
+                    { "nome": "Cave Moss 2*", "probabilita": [51, 65] },
+                    { "nome": "Calcena 2*", "probabilita": [66, 80] },
+                    { "nome": "Radice Nera 2*", "probabilita": [81, 95] },
+                    { "nome": "Sussur 3*", "probabilita": [96, 98] },
+                    { "nome": "Darkness’s Heart 4*", "probabilita": [99, 99] },
+                    { "nome": "Voidroot 4*", "probabilita": [100, 100] }
+                ]
+            },
+            "planare": {
+                primavera: [
+                    { nome: "Inutilizzabile", probabilita: [1, 39] },
+                    { nome: "Piano Astrale > Primorb 4*| Piani Infernali > Miceto Infernale 4*| Coltre Oscura > Rovoscuro 4*| Piano Astrale > Nebulomnia 4*| Selva Fatata > Odulaflora 4*", probabilita: [40, 100] }
+                ],
+                estate: [
+                    { nome: "Inutilizzabile", probabilita: [1, 49] },
+                    { nome: "Piano Astrale > Primorb 4*| Piani Infernali > Miceto Infernale 4*| Coltre Oscura > Rovoscuro 4*| Piano Astrale > Nebulomnia 4*| Selva Fatata > Odulaflora 4*", probabilita: [50, 100] }
+                ],
+                autunno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 39] },
+                    { nome: "Piano Astrale > Primorb 4*| Piani Infernali > Miceto Infernale 4*| Coltre Oscura > Rovoscuro 4*| Piano Astrale > Nebulomnia 4*| Selva Fatata > Odulaflora 4*", probabilita: [40, 100] }
+                ],
+                inverno: [
+                    { nome: "Inutilizzabile", probabilita: [1, 69] },
+                    { nome: "Piano Astrale > Primorb 4*| Piani Infernali > Miceto Infernale 4*| Coltre Oscura > Rovoscuro 4*| Piano Astrale > Nebulomnia 4*| Selva Fatata > Odulaflora 4*", probabilita: [70, 100] }
+                ]
+            }
+};
+
+        // Funzione per generare una pianta casuale
+        function generaPianta(ambiente, stagione) {
+            const ambientePiante = piante[ambiente][stagione];
+            const numeroCasuale = Math.floor(Math.random() * 100) + 1;
+
+            for (let i = 0; i < ambientePiante.length; i++) {
+                const pianta = ambientePiante[i];
+                if (numeroCasuale >= pianta.probabilita[0] && numeroCasuale <= pianta.probabilita[1]) {
+                    return pianta.nome;
+                }
+            }
+        }
+
+        // Gestore degli eventi per i pulsanti
+        const bottoniAmbienti = document.querySelectorAll('.button');
+        bottoniAmbienti.forEach(pulsante => {
+            pulsante.addEventListener('click', function () {
+                const ambienteSelezionato = this.id;
+                const stagioneSelezionata = document.getElementById('stagione-selezionata').value;
+                const pianta = generaPianta(ambienteSelezionato, stagioneSelezionata);
+                document.getElementById('nome-pianta').innerText = `Pianta Trovata: ${pianta}`;
+            });
+        });
+    </script>
+</body>
+</html>

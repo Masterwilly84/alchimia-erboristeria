@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alchimia & Erboristeria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #50C878; /* verde smeraldo */
+            color: white;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+        h1 {
+            margin-bottom: 50px;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            border: none; /* Rimuove il bordo predefinito */
+            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
+            box-shadow: none; /* Rimuove eventuali ombre predefinite */
+            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+        }
+        /* Pulsante con i colori originali */
+        .abbonanza-btn { background-color: #FFB347; }
+        .fonti-conosciute-btn { background-color: #87CEEB; }
+        .fonti-sconosciute-btn { background-color: #FF6347; }
+    </style>
+</head>
+<body>
+    <h1>Alchimia & Erboristeria</h1>
+    <button class="abbonanza-btn" onclick="window.location.href='abbondanza.html'">Abbondanza/Ingredienti</button>
+    <button class="fonti-conosciute-btn" onclick="window.location.href='fonti_conosciute.html'">Fonti Conosciute</button>
+    <button class="fonti-sconosciute-btn" onclick="window.location.href='fonti_sconosciute.html'">Fonti Sconosciute</button>
+</body>
+</html>
