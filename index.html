@@ -6,6 +6,14 @@
     <link rel="manifest" href="manifest.json">
     <title>Alchimia & Erboristeria</title>
     <style>
+        html, body {
+            touch-action: none;
+            -ms-touch-action: none;
+            overflow: hidden;
+            width: 100vw;
+            max-width: 100vw;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -20,9 +28,11 @@
             text-align: center;
             flex-direction: column;
         }
+
         h1 {
             margin-bottom: 50px;
         }
+
         button {
             padding: 15px 30px;
             margin: 10px 0;
@@ -30,16 +40,23 @@
             border-radius: 25px;
             cursor: pointer;
             width: auto;
-            border: none; /* Rimuove il bordo predefinito */
-            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
-            box-shadow: none; /* Rimuove eventuali ombre predefinite */
-            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+            border: none;
+            outline: none;
+            box-shadow: none;
+            font-weight: bold;
         }
+
         /* Pulsante con i colori originali */
         .abbonanza-btn { background-color: #FFB347; }
         .fonti-conosciute-btn { background-color: #87CEEB; }
         .fonti-sconosciute-btn { background-color: #FF6347; }
     </style>
+
+    <script>
+        document.addEventListener("gesturestart", function (e) {
+            e.preventDefault();
+        });
+    </script>
 </head>
 <body>
     <h1>Alchimia & Erboristeria</h1>
