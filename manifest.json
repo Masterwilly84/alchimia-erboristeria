@@ -8,12 +8,12 @@
   "theme_color": "#50C878",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/Masterwilly84/alchimia-erboristeria/main/fonti_icon.png",
+      "src": fonti_icon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://raw.githubusercontent.com/Masterwilly84/alchimia-erboristeria/main/fonti_icon.png",
+      "src": fonti_icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
