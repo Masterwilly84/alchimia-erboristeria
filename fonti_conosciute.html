@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fonti Conosciute</title>
     <style>
+        /* Impostazioni di base */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100%;
-        }
-        .container {
+            height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
             flex-direction: column;
+            justify-content: center; /* Centra il contenuto */
+            align-items: center; /* Centra orizzontalmente */
             background-color: #87CEEB; /* Azzurro chiaro */
         }
+
+        /* Contenitore principale */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
         h1 {
             color: white;
         }
+
         button {
             padding: 15px 30px;
             margin: 10px 0;
@@ -29,49 +38,35 @@
             border-radius: 25px;
             cursor: pointer;
             width: auto;
-            border: none; /* Rimuove il bordo predefinito */
-            outline: none; /* Rimuove l'effetto di contorno quando il pulsante è selezionato */
-            box-shadow: none; /* Rimuove eventuali ombre predefinite */
-            font-weight: bold; /* Aggiungi questa linea per rendere il testo in grassetto */
+            border: none;
+            outline: none;
+            box-shadow: none;
+            font-weight: bold;
         }
+
         .button-presenza {
             background-color: #FFFFFF; /* bianco */
         }
-Mi scuso per il disguido! Vediamo di correggere la situazione.
 
-La causa di questo comportamento potrebbe essere l'effetto combinato del position: fixed e l'uso di height: 100vh; nel tuo body. Se usi 100vh, la dimensione del corpo della pagina si riduce per lasciare spazio al pulsante ancorato. Proviamo a correggere entrambi questi problemi.
-Modifica suggerita:
+        /* Posizionamento del pulsante home */
+        .home-button {
+            position: fixed;
+            bottom: 20px; /* Posiziona il pulsante in fondo alla pagina */
+            left: 50%; /* Centra il pulsante orizzontalmente */
+            transform: translateX(-50%); /* Compensa il margine per centrarlo perfettamente */
+            background-color: transparent;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 30px;
+            color: black;
+        }
 
-    Aggiungiamo height: 100% al corpo, in modo che la dimensione totale della pagina non sia ridotta dal pulsante fisso.
-    Posizioniamo il pulsante correttamente con position: fixed, ma senza alterare l'altezza della pagina.
-
-Nuovo CSS per .home-button:
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Usa il 100% dell'altezza */
-}
-
-.home-button {
-    position: fixed;               /* Fissa il pulsante */
-    bottom: 20px;                  /* Posiziona il pulsante a 20px dal fondo */
-    left: 50%;                     /* Centra orizzontalmente */
-    transform: translateX(-50%);   /* Centra esattamente rispetto alla larghezza */
-    background-color: transparent; /* Rende il pulsante trasparente */
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 30px;               /* Aumenta la dimensione dell'icona */
-    color: black;                  /* Colore dell'icona */
-}
-
-        /* Stili per il risultato della presenza */
+        /* Risultato della presenza */
         .result-text {
-            color: white; /* Imposta il colore del testo a bianco */
-            font-weight: bold; /* Imposta il testo in grassetto */
-            font-size: 20px; /* Imposta la dimensione del testo */
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -85,9 +80,10 @@ body {
             <option value="3">3*</option>
             <option value="4">4*</option>
         </select>
-        <!-- Aggiungi la classe result-text al paragrafo -->
         <p id="presenceResult" class="result-text"></p>
     </div>
+
+    <!-- Pulsante Home -->
     <button class="home-button" onclick="window.location.href='index.html'">⌂</button>
 
     <script>
