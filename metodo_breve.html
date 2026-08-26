@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo Breve/Presenza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #C8A2C8; /* violetto tenue */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            font-weight: bold;
+        }
+
+        .scarsa-btn {
+            background-color: #FFB347;
+        }
+
+        .moderata-btn {
+            background-color: #87CEEB;
+        }
+
+        .ricca-btn {
+            background-color: #FF6347;
+        }
+
+        /* Menù a tendina, identico allo stile di abbondanza.html */
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 0;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Pulsante Home, identico a abbondanza.html */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            background-color: transparent;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .home-btn a {
+            text-decoration: none;
+            color: black;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="home-btn">
+        <a href="index.html">⌂</a>
+    </div>
+
+    <h1>Metodo Breve/Presenza</h1>
+
+    <button class="scarsa-btn" onclick="generaRisultato('Scarsa')">Scarsa</button>
+
+    <button class="moderata-btn" onclick="generaRisultato('Moderata')">Moderata</button>
+
+    <button class="ricca-btn" onclick="generaRisultato('Ricca')">Ricca</button>
+
+    <select id="rarita">
+        <option value="" selected disabled>Seleziona rarità</option>
+        <option value="Comune">Comune</option>
+        <option value="Non Comune">Non Comune</option>
+        <option value="Rara">Rara</option>
+        <option value="Molto Rara">Molto Rara</option>
+        <option value="Leggendaria">Leggendaria</option>
+    </select>
+
+    <div class="result" id="risultato"></div>
+
+    <script>
+        function generaRisultato(tipo) {
+
+            const rarita = document.getElementById("rarita").value;
+            let risultato = "";
+
+            // Controlla che sia stata selezionata una rarità
+            if (rarita === "") {
+                document.getElementById("risultato").textContent = "Seleziona una rarità";
+                return;
+            }
+
+            // Genera un numero casuale intero compreso tra 1 e 100
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            const numero = getRandomInt(1, 100);
+
+            /*
+             * INTERVALLI:
+             *
+             * COMUNE
+             * Scarsa:   1-50 Presente; 51-100 Assente
+             * Moderata: 1-70 Presente; 71-100 Assente
+             * Ricca:    1-80 Presente; 81-100 Assente
+             *
+             * NON COMUNE
+             * Scarsa:   1-20 Presente; 21-100 Assente
+             * Moderata: 1-50 Presente; 51-100 Assente
+             * Ricca:    1-60 Presente; 61-100 Assente
+             *
+             * RARA
+             * Scarsa:   1-5 Presente; 6-100 Assente
+             * Moderata: 1-20 Presente; 21-100 Assente
+             * Ricca:    1-40 Presente; 41-100 Assente
+             *
+             * MOLTO RARA
+             * Scarsa:   1-100 Assente
+             * Moderata: 1-5 Presente; 6-100 Assente
+             * Ricca:    1-10 Presente; 11-100 Assente
+             *
+             * LEGGENDARIA
+             * Scarsa:   1-100 Assente
+             * Moderata: 1-100 Assente
+             * Ricca:    1-1 Presente; 2-100 Assente
+             */
+
+            if (rarita === "Comune") {
+
+                if (tipo === "Scarsa") {
+                    if (numero >= 1 && numero <= 50) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Moderata") {
+                    if (numero >= 1 && numero <= 70) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Ricca") {
+                    if (numero >= 1 && numero <= 80) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+            }
+
+            else if (rarita === "Non Comune") {
+
+                if (tipo === "Scarsa") {
+                    if (numero >= 1 && numero <= 20) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Moderata") {
+                    if (numero >= 1 && numero <= 50) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Ricca") {
+                    if (numero >= 1 && numero <= 60) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+            }
+
+            else if (rarita === "Rara") {
+
+                if (tipo === "Scarsa") {
+                    if (numero >= 1 && numero <= 5) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Moderata") {
+                    if (numero >= 1 && numero <= 20) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Ricca") {
+                    if (numero >= 1 && numero <= 40) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+            }
+
+            else if (rarita === "Molto Rara") {
+
+                if (tipo === "Scarsa") {
+                    if (numero >= 1 && numero <= 100) {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Moderata") {
+                    if (numero >= 1 && numero <= 5) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Ricca") {
+                    if (numero >= 1 && numero <= 10) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+            }
+
+            else if (rarita === "Leggendaria") {
+
+                if (tipo === "Scarsa") {
+                    if (numero >= 1 && numero <= 100) {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Moderata") {
+                    if (numero >= 1 && numero <= 100) {
+                        risultato = "Assente";
+                    }
+                }
+
+                else if (tipo === "Ricca") {
+                    if (numero >= 1 && numero <= 1) {
+                        risultato = "Presente";
+                    } else {
+                        risultato = "Assente";
+                    }
+                }
+            }
+
+            // Mostra il risultato
+            document.getElementById("risultato").textContent = risultato;
+        }
+    </script>
+
+</body>
+</html>
