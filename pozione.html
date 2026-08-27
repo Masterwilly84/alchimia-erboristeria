@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pozione (contenuto)</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #6B8E6B; /* verde alchemico */
+            color: white;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 35px;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            background-color: transparent;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .home-btn a {
+            text-decoration: none;
+            color: black;
+            font-size: 30px;
+        }
+
+        .content {
+            font-size: 20px;
+            line-height: 1.8;
+            color: white;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .main-item {
+            font-weight: bold;
+        }
+
+        .sub-item {
+            font-weight: normal;
+            font-size: 17px;
+        }
+
+        /* Sezione delle fasi del processo */
+        .process-title {
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .phase {
+            width: 100%;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .phase-button {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.25);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .phase-content {
+            display: none;
+            padding: 15px 18px;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .phase-content p {
+            margin: 8px 0;
+        }
+
+        .phase-content ul {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-left: 22px;
+        }
+
+        .phase-content li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="home-btn">
+        <a href="index.html">⌂</a>
+    </div>
+
+    <h1>Pozione (contenuto)</h1>
+
+    <div class="content">
+
+        <div class="main-item">Ingredienti</div>
+        <div>+</div>
+
+        <div class="main-item">Fialetta</div>
+        <div>+</div>
+
+        <div class="main-item">Liquido 0,1 l:</div>
+        <div class="sub-item">Acqua (da bere)</div>
+        <div class="sub-item">Olio (da applicare)</div>
+        <div class="sub-item">Alkaest (da lanciare)</div>
+        <div>+</div>
+
+        <div class="main-item">Polveri minerali</div>
+        <div class="sub-item">Comune e Non Comune: 25 mo</div>
+        <div class="sub-item">Rara: 200 mo</div>
+        <div class="sub-item">Molto rara: 500 mo</div>
+        <div class="sub-item">Leggendaria: 1000 mo</div>
+
+
+        <div class="process-title">Fasi del processo</div>
+
+
+        <div class="phase">
+
+            <button class="phase-button" onclick="togglePhase(this)">
+                <span>Ricerca &amp; Raccolta</span>
+                <span class="symbol">+</span>
+            </button>
+
+            <div class="phase-content">
+
+                <ul>
+                    <li>
+                        Il PG dichiara che vuole cercare degli ingredienti per creare
+                        un certo tipo di pozione, indicandone anche la rarità
+                        (Erborista 30 min / Alchimista 1 ora).
+                    </li>
+
+                    <li>
+                        Il DM in base alla dichiarazione del PG, alla stagione e alla zona,
+                        decide l’abbondanza, per vedere se vengono trovate fonti adatte
+                        per creare quel tipo di pozione. L'abbondanza influisce anche
+                        sul numero finale di pozioni che possono essere create.
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="phase">
+
+            <button class="phase-button" onclick="togglePhase(this)">
+                <span>Trasformazione &amp; Mescita</span>
+                <span class="symbol">+</span>
+            </button>
+
+            <div class="phase-content">
+
+                <ul>
+                    <li>
+                        Il PG utilizza gli ingredienti che ha raccolto e durante un riposo
+                        breve o lungo (in 1 ora), può creare un numero di pozioni pari
+                        al suo Modificatore di Competenza (può sempre decidere di creare
+                        pozioni di qualità inferiore alle fonti trovate).
+                    </li>
+
+                    <li>
+                        Il PG deve effettuare una prova di <i>Intelligenza</i> o
+                        <i>Saggezza</i> (a scelta), la cui CD sarà legata alla rarità
+                        della pozione. Ogni fallimento determina uno spreco di una parte
+                        degli ingredienti.
+                    </li>
+                </ul>
+
+                <p>
+                    (Come al solito vige il requisito di livello del PG (L°) in base
+                    alla rarità della pozione. Quelle di qualità rara o maggiore
+                    necessiteranno anche di un laboratorio).
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function togglePhase(button) {
+
+            const content = button.nextElementSibling;
+            const symbol = button.querySelector(".symbol");
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                symbol.textContent = "+";
+            } else {
+                content.style.display = "block";
+                symbol.textContent = "−";
+            }
+        }
+    </script>
+
+</body>
+</html>
